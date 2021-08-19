@@ -1,0 +1,78 @@
+/*
+ * Pueda usar esta plantilla para la carga del reto a iMaster
+ * Copie las clases de los paquetes Modelo, Vista, Controlador y Util
+ * No incluya los import de los archivos .java solo las clases
+ */
+// Importaciones necesarias en iMaster
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.sql.PreparedStatement;
+
+// Util (No modificar)
+public class JDBCUtilities {
+    private static final String DATABASE_LOCATION = "ProyectosConstruccion.db";
+    private Connection conn;
+
+    public JDBCUtilities () {
+        try {
+            getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Connection getConnection() throws SQLException {
+        String url = "jdbc:sqlite:"+DATABASE_LOCATION;
+        conn = DriverManager.getConnection(url);
+        return conn;
+    }
+
+    public ResultSet ejecutarConsulta(String consulta) {
+        ResultSet rs = null;
+        try {
+            Statement stmt = conn.createStatement();
+            rs = stmt.executeQuery(consulta);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return rs;
+    }
+
+    public int ejecutarSentencia(String sentencia) {
+        int nFilas = 0;
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sentencia);
+            nFilas = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return nFilas;
+    }
+}
+
+// Remplace en adelante por las clases de sus archivos .java
+
+// Vista
+class VistaRequerimientos {}
+
+// Controlador
+class ControladorRequerimientos {}
+
+// Modelo
+// VO
+class Requerimiento_1 {}
+
+class Requerimiento_2 {}
+
+class Requerimiento_3 {}
+
+// DAO
+class Requerimiento_1Dao {}
+
+class Requerimiento_2Dao {}
+
+class Requerimiento_3Dao {}
